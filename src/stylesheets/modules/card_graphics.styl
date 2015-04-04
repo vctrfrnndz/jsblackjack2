@@ -1,0 +1,76 @@
+keys = "a" "2" "3" "4" "5" "6" "7" "8" "9" "10" "j" "q" "k"
+suits = ".heart" ".spade" ".club" ".diamond"
+symbols = heart spade club diamond
+
+for suit, i in suits
+    {suit}
+        for key in keys
+            current_key = '"' + key + '"'
+            sym = symbols[i]
+            
+            &[data-card={current_key}]
+                i:before,
+                i:after
+                    content: " " + key + " \A " + sym
+                
+                if key == "a"
+                    &:before
+                        content: sym
+                        font-size: 40px;
+                        
+                if key == "k"
+                    &:before
+                        background-image: url('../images/king.svg');
+                        
+                    &:after
+                        content: sym + "            \A \A \A \A             "+ sym;
+                        
+                if key == "q"
+                    &:before
+                        background-image: url('../images/queen.svg');
+                        
+                    &:after
+                        content: sym + "            \A \A \A \A             "+ sym;
+                        
+                if key == "j"
+                    &:before
+                        background-image: url('../images/jack.svg');
+                        
+                    &:after
+                        content: sym + "            \A \A \A \A             "+ sym;
+
+                if key == "2"
+                    &:before
+                        content: sym + " \A \A " + sym
+                        
+                if key == "3"
+                    &:before
+                        content: sym + " \A " + sym + "\A " + sym
+                        
+                if key == "4"
+                    &:before
+                        content: sym + "  " + sym + "\A \A " + sym + "  " + sym
+                
+                if key == "5"
+                    &:before
+                        content: sym + "  " + sym + "\A " + sym + "\A " + sym + "  " + sym
+                        
+                if key == "6"
+                    &:before
+                        content: sym + "  " + sym + "\A " + sym + "  " + sym + "\A " + sym + "  " + sym
+                        
+                if key == "7"
+                    &:before
+                        content: sym + "  " + sym + "\A " + sym + "  " + sym + "  " + sym + "\A " + sym + "  " + sym
+                        
+                if key == "8"
+                    &:before
+                        content: sym + "  " + sym + "  " + sym + "\A " + sym + "  " + sym + "\A " + sym + "  " + sym + "  " + sym
+                        
+                if key == "9"
+                    &:before
+                        content: sym + "  " + sym + "  " + sym + "\A " + sym + "  " + sym + "  " + sym + "\A " + sym + "  " + sym + "  " + sym
+                        
+                if key == "10"
+                    &:before
+                        content: sym + "  " + sym + "  " + sym + "\A " + sym + "  " + sym + "  " + sym + "\A " + sym + "  " + sym + "  " + sym + "\A " + sym

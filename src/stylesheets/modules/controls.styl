@@ -1,0 +1,70 @@
+.controls
+    position: absolute;
+    bottom: round(card_gutter * 2.5);
+    left: 0;
+    text-align: center;
+    width: 100%;
+    -webkit-animation-delay: 600ms;
+    
+    button
+        background: none;
+        border: 0;
+        border-radius: 20px;
+        font-family: "Roboto";
+        font-size: 16px;
+        color: color_button_text;
+        padding: 8px 15px;
+        cursor: pointer;
+        outline: none;
+        position: relative;
+        background: color_button_bg;
+        box-shadow: 0 1px 5px 0px rgba(black, 0.2); 
+        
+        > span
+            position: relative;
+            top: -2px;
+            font-size: 12px;
+            margin-left: 5px;
+            opacity: 0.5;
+        
+        &.hit
+            background: color_hit;
+            color: darken(color_hit, 70%);
+            
+            &:before
+                content: spade
+            
+        &.stand
+            background: color_stand;
+            color: darken(color_stand, 70%);
+            
+            &:before
+                content: club
+            
+        &.restart
+            background: #69DB73;
+            color: darken(@background, 70%);
+            
+            &:before
+                content: heart
+        
+        &[disabled]
+            opacity: 0.4 !important;
+        
+        &:hover
+            opacity: 0.9;
+            
+        &:active,
+        .active
+            top: 2px;
+            opacity: 0.9;
+        
+        & + button
+            margin-left: card_gutter;
+            
+        &:before
+            margin-right: 10px;
+            font-size: 12px;
+            position: relative;
+            top: -1px;
+            opacity: 0.5;

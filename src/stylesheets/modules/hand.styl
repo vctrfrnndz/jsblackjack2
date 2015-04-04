@@ -1,0 +1,52 @@
+.hand
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    
+    &.dealer
+        top: 0;
+    
+    &.player
+        bottom: 70px;
+    
+    [data-card]
+        transition: margin-left 300ms 50ms ease;
+        
+        & + [data-card]
+            margin-left: - round(card_w / 1.28);
+            
+    &:hover
+        [data-card]
+            & + [data-card]
+                margin-left: - round(card_w / 2);
+        
+        .indicator
+            display: inline-block;
+                 
+    .indicator
+        transform: translateZ(0);
+        color: rgba(white, 0.45);
+        border: 2px solid rgba(white, 0.15);
+        padding: round(card_gutter / 2) round(card_gutter * 2);
+        border-radius: 20px;
+        font-size: 14px;
+        display: none;
+        -webkit-animation-duration: 300ms;
+        
+        &.loss, &.win, &.tie
+            display: inline-block;
+            
+        &.win
+            background: rgba(color_stand, 0.3)
+            border-color: transparent
+            color: white
+            
+        &.loss
+            background: rgba(color_hit, 0.3)
+            border-color: transparent
+            color: white
+                
+    .cards
+        padding: card_gutter * 2;

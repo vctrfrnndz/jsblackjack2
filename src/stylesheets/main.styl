@@ -1,0 +1,34 @@
+@import "lib/vars"
+
+//@import "vendor/animate"
+
+@import "modules/hand"
+@import "modules/card"
+@import "modules/card_graphics"
+@import "modules/controls"
+
+html
+    box-sizing: border-box;
+
+*, *:before, *:after
+    box-sizing: inherit;
+
+body
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: 'Roboto', sans-serif;
+    
+.hide 
+    display: none;
+    
+.js-blackjack
+    overflow: hidden;
+    position: relative;
+    min-height: round(card_h * 3);
+    background: color_game_bg;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background: -webkit-linear-gradient(45deg, #5f2c82 10%, #49a09d 90%); 
+    background: linear-gradient(45deg, #5f2c82 10%, #49a09d 90%); 
