@@ -8,6 +8,8 @@ var jade = require('gulp-jade'),
 var connect = require('gulp-connect');
 
 gulp.task('media', function() {
+  gulp.src('src/sounds/*')
+    .pipe(gulp.dest('public/assets/sounds')) 
   gulp.src('src/images/*')
     .pipe(gulp.dest('public/assets/images')) 
     .pipe(connect.reload())

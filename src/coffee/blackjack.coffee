@@ -39,7 +39,7 @@ class Card
     animation = animation || 'slideInRight'
 
     if type == 'hidden'
-      hidden = '<div class="flipped ' + animation + '" data-card></div>'
+      hidden = '<div class="flip-card-container"><div class="bounds"><div class="flipped ' + animation + '" data-card></div></div></div>'
 
       return hidden
 
@@ -129,16 +129,23 @@ class UI
         game.restart()
       )
 
+    $('input#sounds')
+      .on('change', ->
+        value = $(@).is(":checked")
+
+        game.toggleSounds(value)
+      )
+
   showRestart: ->
     @controls.find('.hit, .stand').remove()
     @controls.find('button').removeAttr('disabled').removeClass('hide')
 
   showHiddenCard: ->
+    $stage = $(@dom).find('.dealer .flip-card-container')
     $hiddenCard = $(@game.dealer.currentCards[0].template(null, 'slideInLeft'))
 
-    $(@dom).find('.dealer .flipped').replaceWith($hiddenCard)
-
-    @game.animateCards($hiddenCard)
+    $stage.find('.bounds').append($hiddenCard)
+    $stage.addClass('reveal')
 
 
   update: ->
@@ -150,10 +157,14 @@ class UI
     else
       msg = @indicator('You win! ' + @game.player.score() + '-' + @game.dealer.score(), 'win')
 
+    @game.playSound('win')
+
     @getIndicator().replaceWith(msg)
 
   loss: ->
     msg = @indicator('You loose, ' + @game.player.score() + '-' + @game.dealer.score(), 'loss')
+
+    @game.playSound('loose')
 
     @getIndicator().replaceWith(msg)
 
@@ -165,9 +176,9 @@ class UI
   createControls: ->
     template = [
       '<div class="controls animated fadeIn">',
-      '<button class="hit">Hit <span>(H)</span></button>',
-      '<button class="stand">Stand <span>(S)</span></button>',
-      '<button class="restart animated fadeIn hide" disabled>Start Over</button>',
+        '<button class="hit">Hit <span>(H)</span></button>',
+        '<button class="stand">Stand <span>(S)</span></button>',
+        '<button class="restart animated fadeIn hide" disabled>Start Over</button>',
       '</div>',
     ].join('')
 
@@ -195,18 +206,25 @@ class Blackjack
   constructor: (dom) ->
     @dom = dom
 
+    @sounds = 
+      enabled: false
+      win: new Audio('../assets/sounds/win.mp3')
+      loose: new Audio('../assets/sounds/loose.mp3')
+      deal: new Audio('../assets/sounds/deal.mp3')
+
     @init()
 
   restart: ->
     $(@dom).html('')
     $(@dom).off('click')
+    $('input').off()
 
     @init()
 
   init: ->
     @player = new Hand()
     @dealer = new Hand()
-
+    
     $dealer = $(@dealer.template('dealer'))
     $player = $(@player.template('player'))
 
@@ -221,6 +239,13 @@ class Blackjack
 
     @status()
 
+  toggleSounds: (bool) ->
+    @sounds.enabled = bool
+
+  playSound: (soundName) ->
+    if @sounds.enabled
+      @sounds[soundName].currentTime = 0
+      @sounds[soundName].play()
 
   status: (stand) ->
     if @player.score() < 21 && @dealer.score() < 21 && !stand
@@ -247,11 +272,13 @@ class Blackjack
     return @ui.loss()
 
   animateCards: ($cards) ->
-    $cards.each (i, elem) ->
+    $cards.each (i, elem) =>
       card = elem
       time = 400 * i
 
-      setTimeout(->
+      setTimeout(=>
+        @playSound('deal');
+
         $(elem).addClass('animated')
       , time)
 

@@ -1,0 +1,23 @@
+.indicator
+    transform: translateZ(0);
+    color: rgba(white, 0.45);
+    border: 2px solid rgba(white, 0.35);
+    padding: round(card_gutter / 2) round(card_gutter * 2);
+    border-radius: 20px;
+    font-size: 14px;
+    display: none;
+    -webkit-animation-duration: 300ms;
+    margin-bottom: -20px;
+    
+    &.loss,
+    &.win,
+    &.tie
+        display: inline-block;
+        
+    &.win
+        border-color: rgba(color_restart, 0.35)
+        color: white
+        
+    &.loss
+        border-color: rgba(lighten(red, 40%), 0.45)
+        color: white

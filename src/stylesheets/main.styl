@@ -4,6 +4,7 @@
 @import "modules/card"
 @import "modules/card_graphics"
 @import "modules/controls"
+@import "modules/indicator"
 
 html
     box-sizing: border-box;
@@ -16,9 +17,58 @@ body
     padding: 0;
     overflow-x: hidden;
     font-family: 'Roboto', sans-serif;
+    position: relative;
+    
+a 
+    color: white;
     
 .hide 
     display: none;
+       
+.credits
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1;
+    color: white;
+    font-size: 11px;
+    width: 100%;
+    text-align: center;
+    padding-left: 20px;
+    
+    span
+        opacity: 0.7;
+    
+.sounds-switch
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+    
+    label
+        color: white;
+        font-size: 13px;
+        margin-right: 5px;
+        letter-spacing: 2px;
+        opacity: 0.7;
+        text-transform: uppercase;
+        
+    input
+        -webkit-appearance: none;
+        height: 12px;
+        width: 12px;
+        background: none;
+        border-radius: 50%;
+        border: 1px solid white;
+        position: relative;
+        top: 4px;
+        opacity: 0.5;
+        outline: none;
+        
+        &:checked
+            opacity: 1;
+            border: 0;
+            background: color_restart;
     
 .js-blackjack
     overflow: hidden;

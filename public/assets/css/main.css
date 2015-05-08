@@ -6182,45 +6182,43 @@ Copyright (c) 2015 Daniel Eden
 .hand.dealer {
   top: 0;
 }
+.hand.dealer [data-card]:nth-child(1) {
+  z-index: 10;
+}
+.hand.dealer [data-card]:nth-child(2) {
+  z-index: 9;
+}
+.hand.dealer [data-card]:nth-child(3) {
+  z-index: 8;
+}
+.hand.dealer [data-card]:nth-child(4) {
+  z-index: 7;
+}
+.hand.dealer [data-card]:nth-child(5) {
+  z-index: 6;
+}
+.hand.dealer [data-card]:nth-child(6) {
+  z-index: 5;
+}
 .hand.player {
-  bottom: 70px;
+  bottom: 90px;
+}
+.hand.dealer {
+  top: 30px;
 }
 .hand [data-card] {
   transition: margin-left 300ms 50ms ease;
 }
-.hand [data-card] + [data-card] {
-  margin-left: -101px;
+.hand [data-card] + [data-card],
+.hand .flip-card-container + [data-card] {
+  margin-left: -92px;
 }
-.hand:hover [data-card] + [data-card] {
+.hand:hover [data-card] + [data-card],
+.hand:hover .flip-card-container + [data-card] {
   margin-left: -65px;
 }
 .hand:hover .indicator {
   display: inline-block;
-}
-.hand .indicator {
-  transform: translateZ(0);
-  color: rgba(255,255,255,0.45);
-  border: 2px solid rgba(255,255,255,0.15);
-  padding: 5px 20px;
-  border-radius: 20px;
-  font-size: 14px;
-  display: none;
-  -webkit-animation-duration: 300ms;
-}
-.hand .indicator.loss,
-.hand .indicator.win,
-.hand .indicator.tie {
-  display: inline-block;
-}
-.hand .indicator.win {
-  background: rgba(35,208,182,0.3);
-  border-color: transparent;
-  color: #fff;
-}
-.hand .indicator.loss {
-  background: rgba(205,119,255,0.3);
-  border-color: transparent;
-  color: #fff;
 }
 .hand .cards {
   padding: 20px;
@@ -6322,6 +6320,39 @@ Copyright (c) 2015 Daniel Eden
   width: 100%;
   height: 100%;
   opacity: 0.95;
+}
+.flip-card-container {
+  display: inline-block;
+  position: relative;
+  width: 129px;
+  height: 175px;
+  perspective: 800px;
+  z-index: 400;
+}
+.flip-card-container.reveal .bounds {
+  transform: rotateY(180deg);
+}
+.flip-card-container .bounds {
+  background: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+.flip-card-container .bounds [data-card] {
+  display: block;
+  position: absolute;
+  top: auto;
+  left: auto;
+  z-index: auto !important;
+  margin: 0 !important;
+  backface-visibility: hidden;
+}
+.flip-card-container .bounds [data-card] + [data-card] {
+  transform: rotateY(180deg);
+  -webkit-animation: none;
+  animation: none;
 }
 .heart[data-card="a"] i:before,
 .heart[data-card="a"] i:after {
@@ -6729,7 +6760,7 @@ Copyright (c) 2015 Daniel Eden
 }
 .controls {
   position: absolute;
-  bottom: 25px;
+  bottom: 50px;
   left: 0;
   text-align: center;
   width: 100%;
@@ -6798,6 +6829,30 @@ Copyright (c) 2015 Daniel Eden
   top: -1px;
   opacity: 0.5;
 }
+.indicator {
+  transform: translateZ(0);
+  color: rgba(255,255,255,0.45);
+  border: 2px solid rgba(255,255,255,0.35);
+  padding: 5px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  display: none;
+  -webkit-animation-duration: 300ms;
+  margin-bottom: -20px;
+}
+.indicator.loss,
+.indicator.win,
+.indicator.tie {
+  display: inline-block;
+}
+.indicator.win {
+  border-color: rgba(105,219,115,0.35);
+  color: #fff;
+}
+.indicator.loss {
+  border-color: rgba(255,102,102,0.45);
+  color: #fff;
+}
 html {
   box-sizing: border-box;
 }
@@ -6811,9 +6866,58 @@ body {
   padding: 0;
   overflow-x: hidden;
   font-family: 'Roboto', sans-serif;
+  position: relative;
+}
+a {
+  color: #fff;
 }
 .hide {
   display: none;
+}
+.credits {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 1;
+  color: #fff;
+  font-size: 11px;
+  width: 100%;
+  text-align: center;
+  padding-left: 20px;
+}
+.credits span {
+  opacity: 0.7;
+}
+.sounds-switch {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+}
+.sounds-switch label {
+  color: #fff;
+  font-size: 13px;
+  margin-right: 5px;
+  letter-spacing: 2px;
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+.sounds-switch input {
+  -webkit-appearance: none;
+  height: 12px;
+  width: 12px;
+  background: none;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  position: relative;
+  top: 4px;
+  opacity: 0.5;
+  outline: none;
+}
+.sounds-switch input:checked {
+  opacity: 1;
+  border: 0;
+  background: #69db73;
 }
 .js-blackjack {
   overflow: hidden;

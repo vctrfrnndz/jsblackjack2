@@ -1,6 +1,6 @@
 .controls
     position: absolute;
-    bottom: round(card_gutter * 2.5);
+    bottom: round(card_gutter * 5);
     left: 0;
     text-align: center;
     width: 100%;
@@ -29,20 +29,20 @@
         
         &.hit
             background: color_hit;
-            color: darken(color_hit, 70%);
+            color: darken(@background, 70%);
             
             &:before
                 content: spade
             
         &.stand
             background: color_stand;
-            color: darken(color_stand, 70%);
+            color: darken(@background, 70%);
             
             &:before
                 content: club
             
         &.restart
-            background: #69DB73;
+            background: color_restart;
             color: darken(@background, 70%);
             
             &:before

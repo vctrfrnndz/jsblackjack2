@@ -7,46 +7,41 @@
     
     &.dealer
         top: 0;
+        
+        [data-card]
+            &:nth-child(1)
+                z-index: 10;
+            &:nth-child(2)   
+                z-index: 9;
+            &:nth-child(3)
+                z-index: 8;
+            &:nth-child(4)   
+                z-index: 7;
+            &:nth-child(5)
+                z-index: 6;
+            &:nth-child(6)   
+                z-index: 5;
     
     &.player
-        bottom: 70px;
+        bottom: 90px;
+        
+    &.dealer
+        top: 30px;
     
     [data-card]
         transition: margin-left 300ms 50ms ease;
         
-        & + [data-card]
-            margin-left: - round(card_w / 1.28);
+    [data-card] + [data-card],
+    .flip-card-container + [data-card]
+        margin-left: - round(card_w / 1.4);
             
     &:hover
-        [data-card]
-            & + [data-card]
-                margin-left: - round(card_w / 2);
+        [data-card] + [data-card],
+        .flip-card-container + [data-card]
+            margin-left: - round(card_w / 2);
         
         .indicator
             display: inline-block;
-                 
-    .indicator
-        transform: translateZ(0);
-        color: rgba(white, 0.45);
-        border: 2px solid rgba(white, 0.15);
-        padding: round(card_gutter / 2) round(card_gutter * 2);
-        border-radius: 20px;
-        font-size: 14px;
-        display: none;
-        -webkit-animation-duration: 300ms;
-        
-        &.loss, &.win, &.tie
-            display: inline-block;
-            
-        &.win
-            background: rgba(color_stand, 0.3)
-            border-color: transparent
-            color: white
-            
-        &.loss
-            background: rgba(color_hit, 0.3)
-            border-color: transparent
-            color: white
                 
     .cards
         padding: card_gutter * 2;
