@@ -208,9 +208,9 @@ class Blackjack
 
     @sounds = 
       enabled: false
-      win: new Audio('../assets/sounds/win.mp3')
-      loose: new Audio('../assets/sounds/loose.mp3')
-      deal: new Audio('../assets/sounds/deal.mp3')
+      win: new Audio(window.location.href + 'assets/sounds/win.mp3')
+      loose: new Audio(window.location.href + 'assets/sounds/loose.mp3')
+      deal: new Audio(window.location.href + 'assets/sounds/deal.mp3')
 
     @init()
 
