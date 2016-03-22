@@ -1,5 +1,7 @@
 # JS Blackjack 2
 
+Try the demo: http://vctrfrnndz.github.io/jsblackjack2/
+
 ## License
 
 (The MIT License)
