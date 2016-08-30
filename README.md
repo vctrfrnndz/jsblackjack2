@@ -2,6 +2,8 @@
 
 Try the demo: http://vctrfrnndz.github.io/jsblackjack2/
 
+![image](https://cloud.githubusercontent.com/assets/3391028/18077300/0f2171de-6e5b-11e6-8e6e-e2167b5fc5f7.png)
+
 ## License
 
 (The MIT License)
