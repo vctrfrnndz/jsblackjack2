@@ -1,25 +1,27 @@
 class Rules
   @suits = ["club", "diamond", "heart", "spade"]
-
   @numbers = ["a", 2, 3, 4, 5, 6, 7, 8, 9, 10, "j", "q", "k"]
 
-  @randomize = (max) -> 
-    Math.floor(Math.random() * max)
+  @createDeck = ->
+    deck = []
+    for suitIndex in [0...@suits.length]
+      for numIndex in [0...@numbers.length]
+        deck.push(new Card(suitIndex, numIndex))
+    @shuffleDeck(deck)
+    return deck
 
-  @deal = ->
-    cardSuit = @randomize(Rules.suits.length)
-    cardNumber = @randomize(Rules.numbers.length)
-
-    new Card(cardSuit, cardNumber)
+  @shuffleDeck = (deck) ->
+    for i in [deck.length - 1..1]
+      j = Math.floor(Math.random() * (i + 1))
+      [deck[i], deck[j]] = [deck[j], deck[i]]
+  
+  return deck
 
 class Card
   constructor: (@suit, @number) ->
 
   cardColor: ->
-    if @suit < 2
-      return 'red'
-
-    return 'black'
+    if @suit < 2 then 'red' else 'black'
 
   cardSuit: ->
     Rules.suits[@suit]
@@ -39,26 +41,17 @@ class Card
     animation = animation || 'slideInRight'
 
     if type == 'hidden'
-      hidden = '<div class="flip-card-container"><div class="bounds"><div class="flipped ' + animation + '" data-card></div></div></div>'
-
-      return hidden
+      return '<div class="flip-card-container"><div class="bounds"><div class="flipped ' + animation + '" data-card></div></div></div>'
 
     type = @cardColor() + ' ' + @cardSuit() + ' ' + animation
+  
+  return '<div class="' + type + '" data-card="' + @cardLetter() + '"><i></i></div>'
 
-    card = [
-      '<div class="',
-      type,
-      '" data-card="'
-      @cardLetter(),
-      '"><i></i></div>'
-    ].join('');
-
-    return card
 
 class Hand
-  constructor: -> 
-    @first = Rules.deal()
-    @second = Rules.deal()
+  constructor: (@deck) -> 
+    @first = @deck.pop()
+    @second = @deck.pop()
     @currentCards = [@first, @second]
 
   template: (user) ->
@@ -72,7 +65,6 @@ class Hand
         hand.push(card.template())
 
     hand.push('</div></div>')
-
     return hand.join('')
 
   score: ->
@@ -80,22 +72,20 @@ class Hand
     aces = 0
 
     for card in @currentCards
-      sum += card.value()
-
-    if card.value() == 11
-      aces += 1
+      value = card.value()
+      sum += value
+      if value == 11
+        aces += 1
 
     while aces > 0 && sum > 21
       sum -= 10
       aces--
 
-    sum
+    return sum
 
   hit: ->
-    newCard = Rules.deal()
-
+    newCard = @deck.pop()
     @currentCards.push(newCard)
-
     return newCard
 
 class UI
@@ -205,7 +195,7 @@ class UI
 class Blackjack
   constructor: (dom) ->
     @dom = dom
-
+    @deck = Rules.createDeck()
     @sounds = 
       enabled: false
       win: new Audio(window.location.href + 'assets/sounds/win.mp3')
@@ -218,12 +208,12 @@ class Blackjack
     $(@dom).html('')
     $(@dom).off('click')
     $('input').off()
-
+    @deck = Rules.createDeck()
     @init()
 
   init: ->
-    @player = new Hand()
-    @dealer = new Hand()
+    @player = new Hand(@deck)
+    @dealer = new Hand(@deck)
     
     $dealer = $(@dealer.template('dealer'))
     $player = $(@player.template('player'))
@@ -236,7 +226,7 @@ class Blackjack
     @animateCards($player.find('[data-card]'))
 
     @ui = new UI(@dom, @)
-
+    
     @status()
 
   toggleSounds: (bool) ->
