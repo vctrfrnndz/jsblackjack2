@@ -101,9 +101,9 @@ Hand = (function() {
     for (j = 0, len = ref.length; j < len; j++) {
       card = ref[j];
       sum += card.value();
-    }
-    if (card.value() === 11) {
-      aces += 1;
+      if (card.value() === 11) {
+        aces += 1;
+      }
     }
     while (aces > 0 && sum > 21) {
       sum -= 10;
